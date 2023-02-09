@@ -1,0 +1,277 @@
+@font-face {
+    font-family: 'Cyclone';
+    src: url('../assets/fonts/Cyclone.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'pixeBoy';
+    src: url('../assets/fonts/pixeBoy.woff2') format('woff2');
+}
+
+:root {
+    /* * MAiN COLORS */
+    --color-kuro: black;
+    --color-dusk: #212121;
+    --color-mashumaro: #fffce8;
+    --color-sora: #87ceeb;
+
+    /* * PUCK-MAN */
+    --color-binky: #e91113;
+    --color-pinky: #dc80b1;
+    --color-inky: #01f0ef;
+    --color-clyde: #fe8b0d;
+    --color-sue: #9d199d;
+    --color-funky: #7fff00;
+    --color-pacman: #ffea54;
+
+    /* * THEME TOGGLES */
+    --footer-text: var(--footer-text-day);
+    --footer-background: var(--footer-background-day);
+
+    /* * DAY THEME */
+    --footer-text-day: var(--color-kuro);
+    --footer-background-day: linear-gradient(to bottom, transparent, var(--color-mashumaro), var(--color-mashumaro));
+    
+    /* * NiGHT THEME */
+    --footer-text-night: var(--color-mashumaro);
+    --footer-background-night: linear-gradient(to bottom, transparent, var(--color-dusk), var(--color-kuro));
+}
+
+body {
+    background-color: #CFF9FF;
+    color: #FFFCE8;
+    font-family: 'Space Mono';
+
+}
+
+main {
+    display: grid;
+    height: 100vh;
+    place-items: center;
+}
+
+main #calculator {
+    background-color: #EFF2F4;
+    border-bottom-left-radius: 38px;
+    border-bottom-right-radius: 77px;
+    border-top-left-radius: 77px;
+    border-top-right-radius: 38px;
+    box-shadow: inset 0 0 5px black, 0px 11px 10px -10px rgba(0, 0, 0, 0.459);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    height: 500px;
+    justify-content: center;
+    padding: 30px 25px;
+    position: relative;
+    -webkit-transition: all 380ms ease-in-out;
+    transition: all 380ms ease-in-out;
+    width: 350px;
+    z-index: 1;
+}
+
+main #calculator:hover {
+    box-shadow: inset 0 0 8px black;
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+}
+
+main #calculator::before {
+    content: '';
+    border-radius: inherit;
+    box-shadow: 18px 21px 10px -10px rgba(0, 0, 0, 0.3);
+    inset: 0;
+    opacity: 0;
+    position: absolute;
+    -webkit-transition: opacity 380ms linear;
+    transition: opacity 380ms linear;
+    z-index: -1;
+}
+
+main #calculator:hover::before {
+    opacity: 1;
+}
+
+main #calculator #calc-display {
+    align-items: end;
+    background-color: white;
+    border-bottom-left-radius: 33px;
+    border-bottom-right-radius: 55px;
+    border-top-left-radius: 55px;
+    border-top-right-radius: 33px;
+    border: 1px ridge gray;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    justify-content: center;
+}
+
+main #calculator #calc-display p {
+    color: black;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+}
+
+main #calculator #calc-display #calc-communicator {
+    font-size: 35px;
+    overflow: hidden;
+    padding-inline: 10px;
+    text-align: right;
+    width: 100%;
+}
+
+main #calculator #calc-display hr {
+    border-radius: 50%;
+    border-top: 2px solid #cccccc;
+    margin-inline: auto;
+    margin: 0;
+    width: 88%;
+} 
+
+main #calculator #calc-display #calc-current-operation {
+    font-size: 1rem;
+    opacity: 0.5;
+    padding-right: 33px;
+}
+
+main #calculator #calc-btn-container {
+    display: grid;
+    gap: 25px 10px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    place-items: stretch center;
+}
+
+main #calculator .calc-btn {
+    border-radius: 18px;
+    border: 1px ridge gray;
+    box-shadow: 0 8px 5px -5px gray;
+    color: black;
+    height: 50px;
+    -webkit-transition: transform 55ms ease-in-out;
+    transition: transform 55ms ease-in-out;
+    width: 50px;
+}
+
+main #calculator .calc-btn:hover {
+    -webkit-transform: translateY(-1px);
+    transform: translateY(-1px);
+} 
+
+main #calculator .calc-btn:active {
+    -webkit-transform: translateY(1px);
+    transform: translateY(1px);
+} 
+
+main #calculator .calc-number-btn {
+    background-color: #FFFCE8;
+}
+
+main #calculator .calc-misc-btn {
+    background-color: #C4FFA4;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+main #calculator #calc-clear-btn {
+    background-color: rgb(253, 96, 96);
+}
+
+main #calculator #calc-clear-btn > picture {
+    filter: drop-shadow(0 0 3px var(--color-mashumaro));
+}
+
+main #calculator #calc-equals-btn {
+    background-color: #BABDBE;
+    font-size: 1.5rem;
+    grid-column: 5;
+    grid-row: 3 / span 2;
+    height: unset;
+    width: 50px;
+}
+
+footer {
+    align-items: center;
+    /* background: var(--footer-background); */
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: 'pixeBoy', monospace;
+    justify-content: center;
+    left: 0;
+    line-height: 1;
+    padding-bottom: 15px;
+    position: fixed;
+    right: 0;
+    z-index: 2;
+}
+
+footer p {
+    color: var(--footer-text);
+    font-size: 1rem;
+}
+
+footer #cycloneContainer {
+    opacity: 0.5;
+    -webkit-transition: all 0.88s ease-in-out;
+    transition: all 0.88s ease-in-out;
+}
+
+footer:hover #cycloneContainer {
+    opacity: 1;
+    -webkit-transform: scale(1.5) translateY(-28px) rotate(3turn);
+    transform: scale(1.5) translateY(-28px) rotate(3turn);
+}
+
+footer #footnote {
+    opacity: 0.7;
+    position: relative;
+    -webkit-transform: translateY(10px);
+    transform: translateY(10px);
+    -webkit-transition: all 0.88s ease-in-out;
+    transition: all 0.88s ease-in-out;
+}
+
+footer:hover #footnote {
+    opacity: 0.7;
+    -webkit-transform: translateY(33px);
+    transform: translateY(33px);
+}
+
+footer #footnote::before {
+    color: var(--color-sora);
+    content: '© 2023 Time Capsule NY, LLC. All Rights Reserved';
+    inset: 0;
+    opacity: 0;
+    position: absolute;
+    -webkit-transition: opacity 380ms ease-in-out;
+    transition: opacity 380ms ease-in-out;
+} 
+
+footer:hover #footnote::before {
+    opacity: 1;
+}
+
+footer #poweredBy {
+    color: var(--color-binky);
+    font-size: 0.875rem;
+    text-shadow: 0 0 5px;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition: all 0.88s ease-in-out 0.88s;
+    transition: all 0.88s ease-in-out 0.88s;
+}
+
+footer:hover #poweredBy {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+footer #cycloneStudios {
+    filter: var(--cyclone-filter);
+    margin-inline:auto;
+    object-fit: scale-down;
+    width: 50px;
+}
