@@ -17,18 +17,17 @@ const multiply = (x, y) => x * y;
 
 const divide = (x, y) => x / y;
 
-const factorial = (x) => {
+const factorial = (y) => {
     let product = 1;
-    while (x > 0) {
-        product *= x;
-        --x;
+    while (y > 0) {
+        product *= y;
+        --y;
     }
     return product;
 };
 
 function operate() {
     let solution;
-    console.log(operator);
 
     switch (operator) {
         case 'x':
@@ -38,9 +37,13 @@ function operate() {
             break;
         
         case '÷':
-            solution = divide(x, y);
-            calcCommunicator.textContent = solution;
-            calcCurrentOperation.textContent = solution;
+            if (y === 0) {
+                calcCommunicator.textContent = 'Nice try mf';
+            } else {
+                solution = divide(x, y);
+                calcCommunicator.textContent = solution;
+                calcCurrentOperation.textContent = solution;
+            }
             break;
         
         case '+':
@@ -55,12 +58,12 @@ function operate() {
             calcCurrentOperation.textContent = solution;
             break;
         
-        // case '!':
-        //     solution = factorial(x);
-        //     calcCommunicator.textContent = solution;
-        //     calcCurrentOperation.textContent = solution;
-        //     break;
-        
+        case '!':
+            solution = factorial(y);
+            calcCommunicator.textContent = solution;
+            calcCurrentOperation.textContent = solution;
+            break;
+
         // default:         
     }
 }
@@ -84,7 +87,6 @@ function updateUserFeedBack(e) {
         calcCommunicator.textContent = '0'; 
 
         // ! disable operator buttons 
-
     }
 
     if (clickedBtn === 'clear') {
@@ -99,7 +101,7 @@ function updateUserFeedBack(e) {
     if (clickedBtn === 'factorial') {
         console.log(calcCommunicator.textContent);
         if (calcCommunicator.textContent !== '') {
-            alert('there musn\'t be a number before the factorial');
+            alert('There musn\'t be a number before the factorial. Clear the calculator and try again :)');
             return;
         }
         calcCommunicator.textContent = '0';
@@ -108,10 +110,12 @@ function updateUserFeedBack(e) {
 
     if (clickedBtn === 'equals') {
         y = +calcCommunicator.textContent;
-        console.log(`${x} ${operator} ${y}`);
-        operate();
 
+        console.log(`${x} ${operator} ${y}`);
         // ! fix repetitive equal button press functionality
+        // ? counter variable for times clicked maybe?
+
+        operate();
 
         // ! enable operator buttons
     }
