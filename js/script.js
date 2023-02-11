@@ -33,7 +33,6 @@ function operate() {
     switch (operator) {
         case 'x':
             solution = multiply(x, y);
-
             calcCommunicator.textContent = solution;
             calcCurrentOperation.textContent = solution;
             break;
@@ -55,11 +54,13 @@ function operate() {
             calcCommunicator.textContent = solution;
             calcCurrentOperation.textContent = solution;
             break;
+        
         // case '!':
         //     solution = factorial(x);
         //     calcCommunicator.textContent = solution;
         //     calcCurrentOperation.textContent = solution;
         //     break;
+        
         // default:         
     }
 }
