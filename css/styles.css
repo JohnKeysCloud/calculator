@@ -149,6 +149,7 @@ main #calculator .calc-btn {
     border: 1px ridge gray;
     box-shadow: 0 8px 5px -5px gray;
     color: black;
+    cursor: pointer;
     height: 50px;
     -webkit-transition: transform 55ms ease-in-out;
     transition: transform 55ms ease-in-out;
@@ -181,6 +182,7 @@ main #calculator #calc-clear-btn {
 
 main #calculator #calc-clear-btn > picture {
     filter: drop-shadow(0 0 3px var(--color-mashumaro));
+    pointer-events: none;
 }
 
 main #calculator #calc-equals-btn {
