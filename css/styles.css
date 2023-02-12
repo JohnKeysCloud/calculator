@@ -156,6 +156,15 @@ main #calculator .calc-btn {
     width: 50px;
 }
 
+main #calculator .calc-btn:disabled {
+    border: 3px dotted gray;
+
+    background-color: silver;
+    box-shadow: none;
+    cursor: default;
+    opacity: 0.5;
+}
+
 main #calculator .calc-btn:hover {
     -webkit-transform: translateY(-1px);
     transform: translateY(-1px);

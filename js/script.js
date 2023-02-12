@@ -63,13 +63,13 @@ function operate() {
             calcCommunicator.textContent = solution;
             calcCurrentOperation.textContent = solution;
             break;
-
-        // default:         
+        
     }
 }
 
 function updateUserFeedBack(e) {
     let clickedBtn = e.target.getAttribute('data-type');
+    let operatorBtns = document.querySelectorAll('button[data-type=\'operator\']');
 
     if (+calcCommunicator.textContent === 0) calcCommunicator.textContent = '';
     if (+calcCurrentOperation.textContent === 0) calcCurrentOperation.textContent = '';
@@ -80,13 +80,22 @@ function updateUserFeedBack(e) {
     }
     
     if (clickedBtn === 'operator') {
+        let factorialBtn = e.target.textContent === '!';
+
+        if (factorialBtn) {
+            if (calcCommunicator.textContent !== '') {
+                alert('There musn\'t be a number before the factorial. Clear the calculator and try again :)');
+                return;
+            }
+        }
+        
         operator = e.target.textContent;
         x = +calcCurrentOperation.textContent;
         
         calcCurrentOperation.textContent += e.target.textContent;
         calcCommunicator.textContent = '0'; 
 
-        // ! disable operator buttons 
+        operatorBtns.forEach(button => button.setAttribute('disabled', ''));
     }
 
     if (clickedBtn === 'clear') {
@@ -96,16 +105,8 @@ function updateUserFeedBack(e) {
         x = null;
         y = null;
         operator = null;
-    }
 
-    if (clickedBtn === 'factorial') {
-        console.log(calcCommunicator.textContent);
-        if (calcCommunicator.textContent !== '') {
-            alert('There musn\'t be a number before the factorial. Clear the calculator and try again :)');
-            return;
-        }
-        calcCommunicator.textContent = '0';
-        calcCurrentOperation.textContent += e.target.textContent;
+        operatorBtns.forEach((button) => button.removeAttribute('disabled', ''));
     }
 
     if (clickedBtn === 'equals') {
@@ -117,7 +118,23 @@ function updateUserFeedBack(e) {
 
         operate();
 
-        // ! enable operator buttons
+        operatorBtns.forEach((button) => button.removeAttribute('disabled', ''));
+    }
+
+    if (clickedBtn === 'toggle') {
+        if (calcCommunicator.textContent === '') {
+
+            calcCommunicator.textContent = '0';
+            calcCurrentOperation.textContent = '0';
+
+            return;
+        }
+
+        let currentNumber = calcCommunicator.textContent;
+        console.log(currentNumber);
+
+        // calcCommunicator.textContent = `-${currentNumber}`;
+        // calcCurrentOperation.textContent = `-${currentNumber}`;
     }
 }
 
