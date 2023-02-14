@@ -186,11 +186,10 @@ main #calculator .calc-misc-btn {
 }
 
 main #calculator #calc-clear-btn {
-    background-color: rgb(253, 96, 96);
+    background-color: rgb(246, 161, 161);
 }
 
 main #calculator #calc-clear-btn > picture {
-    filter: drop-shadow(0 0 3px var(--color-mashumaro));
     pointer-events: none;
 }
 

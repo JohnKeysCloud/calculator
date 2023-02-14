@@ -38,7 +38,9 @@ function operate() {
         
         case '÷':
             if (y === 0) {
-                calcCommunicator.textContent = 'Nice try mf';
+                alert('You can\'t do that mf 😤');
+                calcCommunicator.textContent = '0';
+                calcCurrentOperation.textContent = '0';
             } else {
                 solution = divide(x, y);
                 calcCommunicator.textContent = solution;
@@ -83,9 +85,14 @@ function updateUserFeedBack(e) {
         let factorialBtn = e.target.textContent === '!';
 
         if (factorialBtn) {
+                operator = e.target.textContent;
+
             if (calcCommunicator.textContent !== '') {
-                alert('There musn\'t be a number before the factorial. Clear the calculator and try again :)');
-                return;
+                let currentCalcText = calcCurrentOperation.textContent;
+                
+                calcCommunicator.textContent = `-${currentCalcText}`;
+                calcCurrentOperation.textContent = `!${currentCalcText}`;
+                return
             }
         }
         
@@ -122,19 +129,32 @@ function updateUserFeedBack(e) {
     }
 
     if (clickedBtn === 'toggle') {
-        if (calcCommunicator.textContent === '') {
+        let currentNumber = calcCommunicator.textContent;
+        let negativeNumber = `-${calcCommunicator.textContent}`;
+        let negativeSymbol = '-';
 
+
+        if (currentNumber === '') {
             calcCommunicator.textContent = '0';
             calcCurrentOperation.textContent = '0';
+            return
+        }
+
+        // !
+        // ! BELOW
+        // !
+
+        if (currentNumber.indexOf(negativeSymbol) === 0) {
+            calcCommunicator.textContent = calcCommunicator.textContent.slice(1);
+            calcCurrentOperation.textContent = calcCommunicator.textContent;
 
             return;
         }
 
-        let currentNumber = calcCommunicator.textContent;
-        console.log(currentNumber);
+        // ? find index of operator by splitting string .. then slice number the after operator and prepend the negative symbol using template literal
 
-        // calcCommunicator.textContent = `-${currentNumber}`;
-        // calcCurrentOperation.textContent = `-${currentNumber}`;
+        calcCommunicator.textContent = negativeNumber;
+        calcCurrentOperation.textContent = negativeNumber;
     }
 }
 
