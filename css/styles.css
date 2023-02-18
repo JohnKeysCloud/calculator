@@ -193,6 +193,7 @@ main #calculator #calc-clear-btn {
 
 main #calculator #calc-clear-btn > picture {
     pointer-events: none;
+    transition: 3s ease-in;
 }
 
 main #calculator #calc-equals-btn {

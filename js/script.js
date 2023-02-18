@@ -1,3 +1,4 @@
+const C = document.querySelector('#calc-clear-btn > picture');
 const calcButtons = document.querySelectorAll('.calc-btn');
 const calcClearButton = document.getElementById('calc-clear-btn');
 const calcCommunicator = document.getElementById('calc-communicator');
@@ -79,7 +80,7 @@ function operate() {
     }
 
     if (isNaN(solution)) {
-        alert('Number is too large');
+        alert('The number is too large 😮');
         calcClearButton.click();
 
         if (calcEqualsBtn.getAttribute('disabled')) calcEqualsBtn.removeAttribute('disabled', '');
@@ -134,7 +135,7 @@ function updateUserFeedBack(e) {
 
                 x = +calcCurrentOperation.textContent.slice(0, calcCurrentOperation.textContent.length - 1)
 
-                decimalBtn.removeAttribute('disabled', '');
+                decimalBtn.setAttribute('disabled', '');
                 calcEqualsBtn.removeAttribute('disabled', '');
                 operatorBtns.forEach(button => button.setAttribute('disabled', ''));
                 toggleBtn.setAttribute('disabled', '');
@@ -226,9 +227,32 @@ function updateUserFeedBack(e) {
         if (calcCommunicator.textContent.includes('-')) {
             factorialBtn.setAttribute('disabled', '');
         }
+
+        if (calcCommunicator.textContent.includes('.')) {
+            decimalBtn.setAttribute('disabled', '');
+        }
+
+        if (calcCurrentOperation.textContent.includes(Infinity) || calcCurrentOperation.textContent.includes(-Infinity)) {
+            alert('TO iNF1NiTY && B3YOND™ ♾️💭');
+
+            calcEqualsBtn.setAttribute('disabled', '');
+            calcNumberButtons.forEach(button => button.setAttribute('disabled', ''));
+            calcOperatorButtons.forEach(button => button.setAttribute('disabled', ''));
+            decimalBtn.setAttribute('disabled', '');
+            factorialBtn.setAttribute('disabled', '');
+            toggleBtn.setAttribute('disabled', '');
+            
+            C.style.transform = 'scale(3.3) rotate(3turn)';
+            C.style.filter = 'drop-shadow(0 0 8px var(--color-binky))';
+        }
     }
 
     if (clickedBtn === 'clear') {
+        if (calcCurrentOperation.textContent.includes(Infinity) || calcCurrentOperation.textContent.includes(-Infinity)) {
+            C.style.transform = 'scale(1) rotate(0)';
+            C.style.filter = 'none';
+        }
+
         calcCommunicator.textContent = '0';
         calcCurrentOperation.textContent = '0';
 
