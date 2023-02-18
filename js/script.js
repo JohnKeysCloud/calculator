@@ -4,6 +4,7 @@ const calcCommunicator = document.getElementById('calc-communicator');
 const calcCurrentOperation = document.getElementById('calc-current-operation');
 const calcNumberButtons = document.querySelectorAll('.calc-number-btn');
 const calcOperatorButtons = document.querySelectorAll('.calc-operator-btn');
+const calcEqualsBtn = document.getElementById('calc-equals-btn');
 
 let x;
 let operator;
@@ -27,8 +28,17 @@ const factorial = (y) => {
     return product;
 };
 
+// ! THIS AND ROUND NUMBERS
+function adjustTextSize() {
+    console.log('To Be Fixed')
+
+    // if (calcCommunicator.textContent.length > 12) {
+    //     calcCommunicator.style.fontSize = '1.25rem'
+    // }
+}
+
 function operate() {
-    let solution;
+    let solution = null;
 
     switch (operator) {
         case 'x':
@@ -66,32 +76,40 @@ function operate() {
             calcCommunicator.textContent = solution;
             calcCurrentOperation.textContent = solution;
             break;
-        
     }
+
+    if (isNaN(solution)) {
+        alert('Number is too large');
+        calcClearButton.click();
+
+        if (calcEqualsBtn.getAttribute('disabled')) calcEqualsBtn.removeAttribute('disabled', '');
+    }
+
+    if (calcCommunicator.textContent.length > 12) adjustTextSize();
 }
 
 function updateUserFeedBack(e) {
     let clickedBtn = e.target.getAttribute('data-type');
+    let decimalBtn = document.getElementById('calc-decimal-btn');
+    let factorialBtn = document.getElementById('calc-factorial-btn');
     let operatorBtns = document.querySelectorAll('button[data-type="operator"]');
     let toggleBtn = document.querySelector('button[data-type="toggle"]');
 
     if (+calcCommunicator.textContent === 0) calcCommunicator.textContent = '';
     if (+calcCurrentOperation.textContent === 0) calcCurrentOperation.textContent = '';
 
-    // * REFACTOR: make switch statement using clickedBtn
-    // * REFACTOR: make switch statement using clickedBtn
-    // * REFACTOR: make switch statement using clickedBtn
-
     if (clickedBtn === 'number') {
         calcCommunicator.textContent += e.target.textContent;
         calcCurrentOperation.textContent += e.target.textContent;
 
+        calcEqualsBtn.removeAttribute('disabled', '');
         toggleBtn.removeAttribute('disabled', '');
     }
 
     if (clickedBtn === 'decimal') {
         calcCommunicator.textContent += e.target.textContent;
         calcCurrentOperation.textContent += e.target.textContent;
+        decimalBtn.setAttribute('disabled', '');
     }
     
     if (clickedBtn === 'operator') {
@@ -111,13 +129,18 @@ function updateUserFeedBack(e) {
             if (calcCommunicator.textContent !== '') {
                 let numberOnly = calcCurrentOperation.textContent;
                 
-                calcCommunicator.textContent = `!${numberOnly}`;
-                calcCurrentOperation.textContent = `!${numberOnly}`;
+                calcCommunicator.textContent = `${numberOnly}!`;
+                calcCurrentOperation.textContent = `${numberOnly}!`;
 
-                x = +calcCurrentOperation.textContent.slice(1);
+                x = +calcCurrentOperation.textContent.slice(0, calcCurrentOperation.textContent.length - 1)
 
+                decimalBtn.removeAttribute('disabled', '');
+                calcEqualsBtn.removeAttribute('disabled', '');
                 operatorBtns.forEach(button => button.setAttribute('disabled', ''));
                 toggleBtn.setAttribute('disabled', '');
+                
+                if (calcCommunicator.textContent <= 12) calcCommunicator.style.fontSize = '2.1875rem';
+
                 return
             }
         }
@@ -128,8 +151,12 @@ function updateUserFeedBack(e) {
         calcCurrentOperation.textContent += e.target.textContent;
         calcCommunicator.textContent = '0'; 
 
-        toggleBtn.setAttribute('disabled', '');
+        decimalBtn.removeAttribute('disabled', '');
+        calcEqualsBtn.setAttribute('disabled', '');
         operatorBtns.forEach(button => button.setAttribute('disabled', ''));   
+        toggleBtn.setAttribute('disabled', '');
+
+        if (calcCommunicator.textContent <= 12) calcCommunicator.style.fontSize = '2.1875rem';
     }
 
     if (clickedBtn === 'toggle') {
@@ -165,11 +192,16 @@ function updateUserFeedBack(e) {
             calcCommunicator.textContent = positiveNumber;
             calcCurrentOperation.textContent = calcCommunicator.textContent;
 
+            factorialBtn.removeAttribute('disabled', '');
+
+
             return;
         }
-
+        
         calcCommunicator.textContent = negativeNumber;
-        calcCurrentOperation.textContent = negativeNumber;
+        calcCurrentOperation.textContent = negativeNumber;    
+        
+        factorialBtn.setAttribute('disabled', '');
     }
 
     if (clickedBtn === 'equals') {
@@ -182,16 +214,18 @@ function updateUserFeedBack(e) {
 
         y = +calcCommunicator.textContent;
 
-        
-        // ! FIX: repetitive equal button press functionality
-        // ! FIX: repetitive equal button press functionality
-        // ! FIX: repetitive equal button press functionality
-        // ? USING COUNTER VARIABLE?
-        console.log(`${x} ${operator} ${y}`);
-
         operate();
-
+        
+        decimalBtn.removeAttribute('disabled', '');
+        calcEqualsBtn.setAttribute('disabled', '');
         operatorBtns.forEach((button) => button.removeAttribute('disabled', ''));
+        toggleBtn.removeAttribute('disabled', '');
+        
+        if (calcCommunicator.textContent <= 12) calcCommunicator.style.fontSize = '2.1875rem';
+
+        if (calcCommunicator.textContent.includes('-')) {
+            factorialBtn.setAttribute('disabled', '');
+        }
     }
 
     if (clickedBtn === 'clear') {
@@ -201,10 +235,35 @@ function updateUserFeedBack(e) {
         x = null;
         y = null;
         operator = null;
+        solution = null;
 
-        operatorBtns.forEach((button) => button.removeAttribute('disabled', ''));
+        calcButtons.forEach((button) => button.removeAttribute('disabled', ''));
+
+        calcCommunicator.style.fontSize = '2.1875rem';
+    }
+}
+
+function simulateClick(e) {
+    if (e.key === '*') {
+        let multiplyBtn = document.querySelector('button[data-key=\'x\']');
+
+        multiplyBtn.click();
+
+        return;
+    }
+    
+    if (e.key === 'Enter') {
+        calcEqualsBtn.click();
+        return;
+    }
+
+    for (let i = 0; i < calcButtons.length; ++i) {        
+        if (e.key === calcButtons[i].getAttribute('data-key')) {
+            e.preventDefault();
+            calcButtons[i].click();
+        } 
     }
 }
 
 calcButtons.forEach(button => button.addEventListener('click', updateUserFeedBack));
-// window.addEventListener('keydown', calculate);
+window.addEventListener('keydown', simulateClick);

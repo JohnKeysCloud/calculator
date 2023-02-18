@@ -104,6 +104,7 @@ main #calculator #calc-display {
     display: flex;
     flex-direction: column;
     height: 100px;
+    overflow-X: scroll;
     justify-content: center;
 }
 
@@ -111,11 +112,12 @@ main #calculator #calc-display p {
     color: black;
     line-height: 1.5;
     margin: 0;
+    overflow-X: scroll;
     padding: 0;
 }
 
 main #calculator #calc-display #calc-communicator {
-    font-size: 35px;
+    font-size: 2.1875rem;
     overflow: hidden;
     padding-inline: 10px;
     text-align: right;
@@ -194,7 +196,7 @@ main #calculator #calc-clear-btn > picture {
 }
 
 main #calculator #calc-equals-btn {
-    background-color: #BABDBE;
+    background-color: #cccccc;
     font-size: 1.5rem;
     grid-column: 5;
     grid-row: 3 / span 2;
