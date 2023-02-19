@@ -41,7 +41,7 @@ function operate() {
         
         case '÷':
             if (y === 0) {
-                alert('You can\'t do that mf 😤');
+                alert('You can\'t do that 😤');
                 calcCommunicator.textContent = '0';
                 calcCurrentOperation.textContent = '0';
             } else {

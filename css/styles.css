@@ -103,25 +103,23 @@ main #calculator #calc-display {
     box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
-    height: 100px;
-    overflow: scroll;
-    padding: 0 15px;
+    min-height: 100px;
+    padding: 8px 18px;
     justify-content: center;
-    /* word-break: break-all; */
-    /* word-wrap: break-word; */
+    word-break: break-all;
+    word-wrap: break-word;
 }
 
 main #calculator #calc-display p {
     color: black;
     line-height: 1.5;
     margin: 0;
-    overflow-X: scroll;
+    overflow: scroll;
     padding: 0;
 }
 
 main #calculator #calc-display #calc-communicator {
     font-size: 2.1875rem;
-    overflow: hidden;
     padding-inline: 10px;
     text-align: right;
     width: 100%;
