@@ -29,15 +29,6 @@ const factorial = (y) => {
     return product;
 };
 
-// ! THIS AND ROUND NUMBERS
-function adjustTextSize() {
-    console.log('To Be Fixed')
-
-    // if (calcCommunicator.textContent.length > 12) {
-    //     calcCommunicator.style.fontSize = '1.25rem'
-    // }
-}
-
 function operate() {
     let solution = null;
 
@@ -85,8 +76,6 @@ function operate() {
 
         if (calcEqualsBtn.getAttribute('disabled')) calcEqualsBtn.removeAttribute('disabled', '');
     }
-
-    if (calcCommunicator.textContent.length > 12) adjustTextSize();
 }
 
 function updateUserFeedBack(e) {
@@ -265,6 +254,8 @@ function updateUserFeedBack(e) {
 
         calcCommunicator.style.fontSize = '2.1875rem';
     }
+
+    if (calcCommunicator.textContent.length > 11) calcCommunicator.style.fontSize = '1.25rem';
 }
 
 function simulateClick(e) {

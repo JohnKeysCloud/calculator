@@ -104,8 +104,11 @@ main #calculator #calc-display {
     display: flex;
     flex-direction: column;
     height: 100px;
-    overflow-X: scroll;
+    overflow: scroll;
+    padding: 0 15px;
     justify-content: center;
+    /* word-break: break-all; */
+    /* word-wrap: break-word; */
 }
 
 main #calculator #calc-display p {
